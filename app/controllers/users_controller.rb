@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
 
   def index
-    @users = User.all
-    render json: @users, status: 200
+    users = User.all
+    render json: users, status: 200
   end
 
   def show
-    @user = User.find(user_params[:id])
-    render json: @user, status: 200
+    user = User.find(user_params[:id])
+    render json: user, serializer: UserSerializer, status: 200
   end
 
   def create
@@ -35,7 +35,7 @@ class UsersController < ApplicationController
     user = User.find_by(email: user_params[:email].to_s.downcase)
     if user && user.authenticate(user_params[:password])
       auth_token = JsonWebToken.encode({user_id: user.id})
-      render json: {auth_token: auth_token}, status: 200
+      render json: {auth_token: auth_token, pets: user.pets}, status: 200
     else
       render json: {error: 'Invalid username / password'}, status: :unauthorized
     end
