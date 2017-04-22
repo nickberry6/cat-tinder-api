@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-    before_action :authenticate_request!, except: [:login, :create]
+  before_action :authenticate_request!, except: [:login, :create]
 
   protected
   # Validates the token and user and sets the @current_user scope

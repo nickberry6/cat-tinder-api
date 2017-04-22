@@ -4,4 +4,6 @@ Rails.application.routes.draw do
       post 'login'
     end
   end
+
+  get 'pets', to: 'pets#query_pets'
 end
